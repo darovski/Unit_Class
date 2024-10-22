@@ -35,8 +35,8 @@ class TaskManager:
 
 # Пример использования
 task_manager = TaskManager()
-task_manager.add_task("Сделать домашнее задание", "2023-10-15")
-task_manager.add_task("Купить продукты", "2023-10-10")
+task_manager.add_task("Сделать домашнее задание", "2024-10-18")
+task_manager.add_task("Купить продукты", "2024-10-26")
 
 print("Все задачи:")
 print(task_manager)
