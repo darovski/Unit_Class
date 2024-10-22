@@ -1,28 +1,60 @@
 class User:
     def __init__(self, ID, name, privileges):
-        self.ID = ID
-        self.name = name
-        self.privileges = privileges
+        self._ID = ID
+        self._name = name
+        self._privileges = privileges
 
-    def read_user_list(self):
-        list_users = []
-        list_users = User
-        print(f"Список пользователей: {list_users}" )
+    # Методы для доступа к защищённым атрибутам
+    def get_ID(self):
+        return self._ID
+
+    def get_name(self):
+        return self._name
+
+    def get_privileges(self):
+        return self._privileges
+
+    def set_name(self, name):
+        self._name = name
+
+    def set_privileges(self, privileges):
+        self._privileges = privileges
+
 
 class Admin(User):
     def __init__(self, ID, name, privileges):
         super().__init__(ID, name, privileges)
+        self._users_list = []
 
     def add_user(self, ID, name, privileges):
-        pass
+        new_user = User(ID, name, privileges)
+        self._users_list.append(new_user)
+        print(f"Пользователь {name} добавлен.")
 
-    def delete_user(self, name):
-        pass
+    def remove_user(self, name):
+        for user in self._users_list:
+            if user.get_name() == name:
+                self._users_list.remove(user)
+                print(f"Пользователь {name} удален.")
+                return
+        print(f"Пользователь {name} не найден.")
 
-user1 = User("2", "Sergey", "user")
-user2 = User("0", "Genadiy", "admin")
+    # Метод для отображения всех пользователей
+    def show_users(self):
+        for user in self._users_list:
+            print(f"ID: {user.get_ID()}, Имя: {user.get_name()}, Привилегии: {user.get_privileges()}")
 
-print(f"Пользователь - {user1.name}, Уровень доступа - {user1.privileges}")
-print(f"Пользователь - {user2.name}, Уровень доступа - {user2.privileges}")
 
-user1.read_user_list()
+admin = Admin("1", "AdminUser", "admin")
+admin.add_user("1", "AdminUser", "admin")
+admin.add_user("2", "Sergey", "user")
+admin.add_user("3", "Alexey", "user")
+
+print("Список пользователей:")
+admin.show_users()
+
+admin.remove_user("Sergey")
+
+print("Список пользователей после удаления:")
+admin.show_users()
+
