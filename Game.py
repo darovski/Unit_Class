@@ -63,10 +63,12 @@ class Snake:
         new_head = (self.body[0][0] + self.direction[0], self.body[0][1] + self.direction[1])
 
         # Проверка на выход за границы экрана
-        if new_head[0] < 0 or new_head[0] >= SCREEN_WIDTH or new_head[1] < 0 or new_head[1] >= SCREEN_HEIGHT:
-            game.is_running = False  # Остановка игры
-            return
+        if new_head[0] < 0 or new_head[0] >= SCREEN_WIDTH:
+            self.direction = (-self.direction[0], self.direction[1])
+        if new_head[1] < 0 or new_head[1] >= SCREEN_HEIGHT:
+            self.direction = (self.direction[0], -self.direction[1])
 
+        new_head = (self.body[0][0] + self.direction[0], self.body[0][1] + self.direction[1])
         self.body = [new_head] + self.body[:-1]
 
     def grow(self):
